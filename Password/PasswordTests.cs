@@ -12,6 +12,12 @@ namespace Password
                         CollectionAssert.AreEqual(new char[] { 'a', 'b' ,'c' }, CharArray('a', 'c'));
                 } // }}}
 
+                [TestMethod]
+                public void CreateCharListReversed() // {{{
+                {
+                        CollectionAssert.AreEqual(new char[] {'c'}, CharArray('c', 'a'));
+                } // }}}
+
                 char[] CharArray(char start, char end) // {{{ 
                 {
                         if (start <= end) {
