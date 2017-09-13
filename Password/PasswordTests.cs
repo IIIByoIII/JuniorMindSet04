@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Password
 {
@@ -30,6 +31,17 @@ namespace Password
                 return result;
             }
             return new char[] {start};
+        }/*fe*/
+
+        [TestMethod]
+        public void RemoveFromCharList()/*fs*/
+        {
+            CollectionAssert.AreEqual(new char[] { 'a', 'c' }, CharRemove(CharArray('a', 'c'), 'b'));
+        }/*fe*/
+
+        char[] CharRemove(char[] theArray, char toRemove)/*fs*/
+        {
+            return theArray.Where(val => val != toRemove).ToArray();
         }/*fe*/
     }
 }
