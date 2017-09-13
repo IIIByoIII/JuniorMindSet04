@@ -3,33 +3,33 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Password
 {
-        [TestClass]
-        public class PasswordTests
+    [TestClass]
+    public class PasswordTests
+    {
+        [TestMethod]
+        public void CreateCharList()/*fs*/
         {
-                [TestMethod]
-                public void CreateCharList() // {{{
-                {
-                        CollectionAssert.AreEqual(new char[] { 'a', 'b' ,'c' }, CharArray('a', 'c'));
-                } // }}}
+            CollectionAssert.AreEqual(new char[] { 'a', 'b' ,'c' }, CharArray('a', 'c'));
+        }/*fe*/
 
-                [TestMethod]
-                public void CreateCharListReversed() // {{{
-                {
-                        CollectionAssert.AreEqual(new char[] {'c'}, CharArray('c', 'a'));
-                } // }}}
+        [TestMethod]
+        public void CreateCharListReversed()/*fs*/
+        {
+            CollectionAssert.AreEqual(new char[] {'c'}, CharArray('c', 'a'));
+        }/*fe*/
 
-                char[] CharArray(char start, char end) // {{{ 
-                {
-                        if (start <= end) {
-                                char jChar = start;
-                                char[] result = new char[end + 1 - start];
-                                for (int i = 0; i < (end + 1 - start); i++) {
-                                        result[i] = jChar;
-                                        jChar++;
-                                }
-                                return result;
-                        }
-                        return new char[] {start};
-                } // }}}
-        }
+        char[] CharArray(char start, char end)/*fs*/
+        {
+            if (start <= end) {
+                char jChar = start;
+                char[] result = new char[end + 1 - start];
+                for (int i = 0; i < (end + 1 - start); i++) {
+                    result[i] = jChar;
+                    jChar++;
+                }
+                return result;
+            }
+            return new char[] {start};
+        }/*fe*/
+    }
 }
