@@ -44,6 +44,14 @@ namespace Password
             return theArray.Where(val => val != toRemove).ToArray();
         }/*fe*/
 
+        bool IsThereChar(char chr, char[] charArray)/*fs*/
+        {
+            for (int i = 0; i < charArray.Length; i++)
+                if (chr == charArray[i])
+                    return true;
+            return false;
+        }/*fe*/
+
         [TestMethod]
         public void Exists_x()/*fs*/ 
         {
@@ -60,6 +68,14 @@ namespace Password
         public void Exists_l()/*fs*/ 
         {
             Assert.AreEqual(false, IsThereChar('l', SmallLetters()));
+        }/*fe*/
+        
+        char[] SmallLetters()/*fs*/
+        {
+            var lettersArray = CharArray('a', 'z');
+            foreach (char element in new char[] { 'l', 'o' })
+                lettersArray = CharRemove(lettersArray, element);
+            return lettersArray;
         }/*fe*/
 
         [TestMethod]
@@ -78,22 +94,6 @@ namespace Password
         public void Exists_I()/*fs*/ 
         {
             Assert.AreEqual(false, IsThereChar('I', CapitalLetters()));
-        }/*fe*/
-
-        bool IsThereChar(char chr, char[] charArray)/*fs*/
-        {
-            for (int i = 0; i < charArray.Length; i++)
-                if (chr == charArray[i])
-                    return true;
-            return false;
-        }/*fe*/
-        
-        char[] SmallLetters()/*fs*/
-        {
-            var lettersArray = CharArray('a', 'z');
-            foreach (char element in new char[] { 'l', 'o' })
-                lettersArray = CharRemove(lettersArray, element);
-            return lettersArray;
         }/*fe*/
 
         char[] CapitalLetters()/*fs*/
