@@ -120,5 +120,49 @@ namespace Password
         {
             return CharArray('2', '9');
         }/*fe*/
+
+        [TestMethod]
+        public void Exists_at()/*fs*/ 
+        {
+            Assert.AreEqual(true, IsThereChar('@', SomeSymbols()));
+        }/*fe*/
+
+        [TestMethod]
+        public void Exists_percent()/*fs*/ 
+        {
+            Assert.AreEqual(true, IsThereChar('%', SomeSymbols()));
+        }/*fe*/
+
+        [TestMethod]
+        public void Exists_equal()/*fs*/ 
+        {
+            Assert.AreEqual(true, IsThereChar('=', SomeSymbols()));
+        }/*fe*/
+
+        [TestMethod]
+        public void Exists_Underscore()/*fs*/ 
+        {
+            Assert.AreEqual(true, IsThereChar('_', SomeSymbols()));
+        }/*fe*/
+
+        [TestMethod]
+        public void Exists_LeftBracket()/*fs*/ 
+        {
+            Assert.AreEqual(false, IsThereChar('(', SomeSymbols()));
+        }/*fe*/
+
+        [TestMethod]
+        public void Exists_LessThan()/*fs*/ 
+        {
+            Assert.AreEqual(false, IsThereChar('<', SomeSymbols()));
+        }/*fe*/
+
+        char[] SomeSymbols()/*fs*/
+        {
+            var symbolsArray = new char[] { '^', '_', '|' }.Concat(CharArray('!', '-').Concat(CharArray(':', '@')).ToArray()).ToArray();
+            foreach (char element in new char[] { '{', '}', '[', ']', '(', ')', '/', '\\', '\'', '"', '~', ',', ';', '.', '<', '>' })
+                symbolsArray = CharRemove(symbolsArray, element);
+            return symbolsArray;
+        }/*fe*/
     }
 }
