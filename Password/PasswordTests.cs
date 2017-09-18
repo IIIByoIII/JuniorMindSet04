@@ -103,5 +103,22 @@ namespace Password
                 capitalsArray = CharRemove(capitalsArray, element);
             return capitalsArray;
         }/*fe*/
+
+        [TestMethod]
+        public void Exists_4()/*fs*/ 
+        {
+            Assert.AreEqual(true, IsThereChar('4', SomeNumbers()));
+        }/*fe*/
+
+        [TestMethod]
+        public void Exists_0()/*fs*/ 
+        {
+            Assert.AreEqual(false, IsThereChar('0', SomeNumbers()));
+        }/*fe*/
+
+        char[] SomeNumbers()/*fs*/
+        {
+            return CharArray('2', '9');
+        }/*fe*/
     }
 }
