@@ -43,5 +43,27 @@ namespace Password
         {
             return theArray.Where(val => val != toRemove).ToArray();
         }/*fe*/
+
+        [TestMethod]
+        public void Exists_x()/*fs*/ 
+        {
+            Assert.AreEqual(true, IsThereChar('x', SmallLetters()));
+        }/*fe*/
+
+        bool IsThereChar(char chr, char[] charArray)/*fs*/
+        {
+            for (int i = 0; i < charArray.Length; i++)
+                if (chr == charArray[i])
+                    return true;
+            return false;
+        }/*fe*/
+        
+        char[] SmallLetters()/*fs*/
+        {
+            var lettersArray = CharArray('a', 'z');
+            foreach (char element in new char[] { 'l', 'o' })
+                lettersArray = CharRemove(lettersArray, element);
+            return lettersArray;
+        }/*fe*/
     }
 }
