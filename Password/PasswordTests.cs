@@ -50,6 +50,18 @@ namespace Password
             Assert.AreEqual(true, IsThereChar('x', SmallLetters()));
         }/*fe*/
 
+        [TestMethod]
+        public void Exists_X()/*fs*/ 
+        {
+            Assert.AreEqual(false, IsThereChar('X', SmallLetters()));
+        }/*fe*/
+
+        [TestMethod]
+        public void Exists_l()/*fs*/ 
+        {
+            Assert.AreEqual(false, IsThereChar('l', SmallLetters()));
+        }/*fe*/
+
         bool IsThereChar(char chr, char[] charArray)/*fs*/
         {
             for (int i = 0; i < charArray.Length; i++)
