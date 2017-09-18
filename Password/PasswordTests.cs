@@ -62,6 +62,24 @@ namespace Password
             Assert.AreEqual(false, IsThereChar('l', SmallLetters()));
         }/*fe*/
 
+        [TestMethod]
+        public void Exists_B()/*fs*/ 
+        {
+            Assert.AreEqual(true, IsThereChar('B', CapitalLetters()));
+        }/*fe*/
+
+        [TestMethod]
+        public void Exists_b()/*fs*/ 
+        {
+            Assert.AreEqual(false, IsThereChar('b', CapitalLetters()));
+        }/*fe*/
+
+        [TestMethod]
+        public void Exists_I()/*fs*/ 
+        {
+            Assert.AreEqual(false, IsThereChar('I', CapitalLetters()));
+        }/*fe*/
+
         bool IsThereChar(char chr, char[] charArray)/*fs*/
         {
             for (int i = 0; i < charArray.Length; i++)
@@ -76,6 +94,14 @@ namespace Password
             foreach (char element in new char[] { 'l', 'o' })
                 lettersArray = CharRemove(lettersArray, element);
             return lettersArray;
+        }/*fe*/
+
+        char[] CapitalLetters()/*fs*/
+        {
+            var capitalsArray = CharArray('A', 'Z');
+            foreach (char element in new char[] { 'I', 'O' })
+                capitalsArray = CharRemove(capitalsArray, element);
+            return capitalsArray;
         }/*fe*/
     }
 }
