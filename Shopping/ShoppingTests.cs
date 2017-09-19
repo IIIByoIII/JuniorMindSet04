@@ -9,22 +9,28 @@ namespace Shopping
         [TestMethod]
         public void FirstItemName()/*fs*/
         {
-            Assert.AreEqual("apple", A.name);
+            var firstItem = new Item("apple", 3.2);
+            Assert.AreEqual("apple", firstItem.name);
         }/*fe*/
 
         [TestMethod]
         public void SecondItemPrice()/*fs*/
         {
-            Assert.AreEqual(3.8, B.price);
+            var secondItem = new Item("pear", 3.8);
+            Assert.AreEqual(3.8, secondItem.price);
         }/*fe*/
 
-        Item A = new Item { name = "apple", price = 3.2 };
-        Item B = new Item { name = "pear", price = 3.8 };
-
-        struct Item/*fs*/
+        public struct Item/*fs*/
         {
             public string name;
             public double price;
+
+            public Item(string name, double price) {
+                this.name = name;
+                this.price = price;
+            }
         }/*fe*/
+
+
     }
 }
