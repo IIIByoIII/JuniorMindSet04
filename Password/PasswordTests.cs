@@ -183,6 +183,12 @@ namespace Password
             Assert.AreEqual(3, HowManyChars(SomeNumbers(), GeneratePass(8, 1, 3, 1)));
         }/*fe*/
 
+        [TestMethod]
+        public void ThreeSymbols()/*fs*/ 
+        {
+            Assert.AreEqual(3, HowManyChars(SomeSymbols(), GeneratePass(8, 1, 1, 3)));
+        }/*fe*/
+
         int HowManyChars(char[] toFind, string thePassword)/*fs*/
         {
             int result = 0;
