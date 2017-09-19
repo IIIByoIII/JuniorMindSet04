@@ -189,6 +189,18 @@ namespace Password
             Assert.AreEqual(3, HowManyChars(SomeSymbols(), GeneratePass(8, 1, 1, 3)));
         }/*fe*/
 
+        [TestMethod]
+        public void NoSmallLetters()/*fs*/ 
+        {
+            Assert.AreEqual(0, HowManyChars(SmallLetters(), GeneratePass(8, 4, 4, 4)));
+        }/*fe*/
+
+        [TestMethod]
+        public void NoSymbols()/*fs*/ 
+        {
+            Assert.AreEqual(0, HowManyChars(SomeSymbols(), GeneratePass(8, 4, 4, 4)));
+        }/*fe*/
+
         int HowManyChars(char[] toFind, string thePassword)/*fs*/
         {
             int result = 0;
