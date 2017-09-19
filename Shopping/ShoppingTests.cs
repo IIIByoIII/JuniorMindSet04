@@ -31,6 +31,19 @@ namespace Shopping
             }
         }/*fe*/
 
+        [TestMethod]
+        public void TotalPrice()/*fs*/
+        {
+            var allItems = new Item[] { new Item("apple", 3.2), new Item("pear", 3.8) };
+            Assert.AreEqual(7.0, GetTotalPrice(allItems));
+        }/*fe*/
 
+        static double GetTotalPrice(Item[] items)/*fs*/
+        {
+            double total = 0;
+            for (int i = 0; i < items.Length; i++)
+                total += items[i].price;
+            return total;
+        }/*fe*/
     }
 }
