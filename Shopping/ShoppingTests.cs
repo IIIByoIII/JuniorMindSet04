@@ -7,8 +7,17 @@ namespace Shopping
     public class ShoppingTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void FirstItemName()
         {
+            Assert.AreEqual("apple", A.name);
+        }
+
+        Item A = new Item { name = "apple", price = 3.2 };
+
+        struct Item
+        {
+            public string name;
+            public double price;
         }
     }
 }
