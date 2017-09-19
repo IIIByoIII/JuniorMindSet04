@@ -171,6 +171,12 @@ namespace Password
             Assert.AreEqual(5, HowManyChars(SmallLetters(), GeneratePass(8, 1, 1, 1)));
         }/*fe*/
 
+        [TestMethod]
+        public void ThreeCapitalLetters()/*fs*/ 
+        {
+            Assert.AreEqual(3, HowManyChars(CapitalLetters(), GeneratePass(8, 3, 1, 1)));
+        }/*fe*/
+
         int HowManyChars(char[] toFind, string thePassword)/*fs*/
         {
             int result = 0;
