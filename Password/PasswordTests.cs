@@ -164,5 +164,46 @@ namespace Password
                 symbolsArray = CharRemove(symbolsArray, element);
             return symbolsArray;
         }/*fe*/
+
+        [TestMethod]
+        public void FiveSmallLetters()/*fs*/ 
+        {
+            Assert.AreEqual(5, HowManyChars(SmallLetters(), GeneratePass(8, 1, 1, 1)));
+        }/*fe*/
+
+        int HowManyChars(char[] toFind, string thePassword)/*fs*/
+        {
+            int result = 0;
+            for (int i = 0; i < thePassword.Length; i++)
+                for (int j = 0; j < toFind.Length; j++)
+                    if (thePassword[i] == toFind[j])
+                        result++;
+            return result;
+        }/*fe*/
+
+        string GeneratePass(int passLength, int capitals, int numbers, int symbols)/*fs*/
+        {
+            Random rnd = new Random();
+            var passChars = new char[passLength];
+            for (int i = 0; i < passLength; i++) {
+                if (capitals > 0) {
+                    passChars[i] = CapitalLetters()[rnd.Next(0, CapitalLetters().Length)];
+                    capitals--;
+                }
+                else if (numbers > 0) {
+                    passChars[i] = SomeNumbers()[rnd.Next(0, SomeNumbers().Length)];
+                    numbers--;
+                }
+                else if (symbols > 0) {
+                    passChars[i] = SomeSymbols()[rnd.Next(0, SomeSymbols().Length)];
+                    symbols--;
+                }
+                else
+                    passChars[i] = SmallLetters()[rnd.Next(0, SmallLetters().Length)];
+            }
+            char[] shuffledChars = passChars.OrderBy(n => Guid.NewGuid()).ToArray();
+            string result = new string(shuffledChars);
+            return result;
+        }/*fe*/
     }
 }
