@@ -7,20 +7,20 @@ namespace Shopping
     public class ShoppingTests
     {
         [TestMethod]
-        public void FirstItemName()/*fs*/
+        public void FirstItemName()
         {
             var firstItem = new Item("apple", 3.2);
             Assert.AreEqual("apple", firstItem.name);
-        }/*fe*/
+        }
 
         [TestMethod]
-        public void SecondItemPrice()/*fs*/
+        public void SecondItemPrice()
         {
             var secondItem = new Item("pear", 3.8);
             Assert.AreEqual(3.8, secondItem.price);
-        }/*fe*/
+        }
 
-        public struct Item/*fs*/
+        public struct Item
         {
             public string name;
             public double price;
@@ -29,21 +29,21 @@ namespace Shopping
                 this.name = name;
                 this.price = price;
             }
-        }/*fe*/
+        }
 
         [TestMethod]
-        public void TotalPrice()/*fs*/
+        public void TotalPrice()
         {
             var allItems = new Item[] { new Item("apple", 3.2), new Item("pear", 3.8) };
             Assert.AreEqual(7.0, GetTotalPrice(allItems));
-        }/*fe*/
+        }
 
-        static double GetTotalPrice(Item[] items)/*fs*/
+        static double GetTotalPrice(Item[] items)
         {
             double total = 0;
             for (int i = 0; i < items.Length; i++)
                 total += items[i].price;
             return total;
-        }/*fe*/
+        }
     }
 }
