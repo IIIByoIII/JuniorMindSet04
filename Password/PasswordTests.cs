@@ -10,46 +10,39 @@ namespace Password
         [TestMethod]
         public void CreateCharList()
         {
-            CollectionAssert.AreEqual(new char[] { 'a', 'b' ,'c' }, CharArray('a', 'c'));
+            Assert.AreEqual("abc", CharArray('a', 'c'));
         }
 
         [TestMethod]
         public void CreateCharListReversed()
         {
-            CollectionAssert.AreEqual(new char[] {'c'}, CharArray('c', 'a'));
+            Assert.AreEqual("", CharArray('c', 'a'));
         }
 
-        char[] CharArray(char start, char end)
+        string CharArray(char start, char end)
         {
-            if (start <= end) {
-                char jChar = start;
-                char[] result = new char[end + 1 - start];
-                for (int i = 0; i < (end + 1 - start); i++) {
-                    result[i] = jChar;
-                    jChar++;
-                }
-                return result;
-            }
-            return new char[] {start};
+            string result = "";
+            for (char c = start; c <= end; c++)
+                result += c;
+            return result;
         }
 
         [TestMethod]
         public void RemoveFromCharList()
         {
-            CollectionAssert.AreEqual(new char[] { 'a', 'c' }, CharRemove(CharArray('a', 'c'), 'b'));
+            Assert.AreEqual("ac", CharRemove(CharArray('a', 'c'), "b"));
         }
 
-        char[] CharRemove(char[] theArray, char toRemove)
+        string CharRemove(string theArray, string toRemove)
         {
-            return theArray.Where(val => val != toRemove).ToArray();
+            for (int i = 0; i < toRemove.Length; i++)
+                theArray = theArray.Replace(toRemove[i].ToString(), "");
+            return theArray;
         }
 
-        bool IsThereChar(char chr, char[] charArray)
+        bool IsThereChar(char chr, string charArray)
         {
-            for (int i = 0; i < charArray.Length; i++)
-                if (chr == charArray[i])
-                    return true;
-            return false;
+            return (charArray.IndexOf(chr) > -1);
         }
 
         [TestMethod]
@@ -67,15 +60,12 @@ namespace Password
         [TestMethod]
         public void Exists_l() 
         {
-            Assert.AreEqual(false, IsThereChar('l', SmallLetters()));
+            Assert.AreEqual(false, IsThereChar('l', CharRemove(SmallLetters(), "lo")));
         }
         
-        char[] SmallLetters()
+        string SmallLetters()
         {
-            var lettersArray = CharArray('a', 'z');
-            foreach (char element in new char[] { 'l', 'o' })
-                lettersArray = CharRemove(lettersArray, element);
-            return lettersArray;
+            return CharArray('a', 'z');
         }
 
         [TestMethod]
@@ -93,15 +83,12 @@ namespace Password
         [TestMethod]
         public void Exists_I() 
         {
-            Assert.AreEqual(false, IsThereChar('I', CapitalLetters()));
+            Assert.AreEqual(false, IsThereChar('I', CharRemove(CapitalLetters(), "IO")));
         }
 
-        char[] CapitalLetters()
+        string CapitalLetters()
         {
-            var capitalsArray = CharArray('A', 'Z');
-            foreach (char element in new char[] { 'I', 'O' })
-                capitalsArray = CharRemove(capitalsArray, element);
-            return capitalsArray;
+            return CharArray('A', 'Z');
         }
 
         [TestMethod]
@@ -113,12 +100,12 @@ namespace Password
         [TestMethod]
         public void Exists_0() 
         {
-            Assert.AreEqual(false, IsThereChar('0', SomeNumbers()));
+            Assert.AreEqual(false, IsThereChar('0', CharRemove(SomeNumbers(), "09")));
         }
 
-        char[] SomeNumbers()
+        string SomeNumbers()
         {
-            return CharArray('2', '9');
+            return CharArray('0', '9');
         }
 
         [TestMethod]
@@ -148,21 +135,18 @@ namespace Password
         [TestMethod]
         public void Exists_LeftBracket() 
         {
-            Assert.AreEqual(false, IsThereChar('(', SomeSymbols()));
+            Assert.AreEqual(false, IsThereChar('(', CharRemove(SomeSymbols(), "{}[]()/\\\'\"~,;.<>")));
         }
 
         [TestMethod]
         public void Exists_LessThan() 
         {
-            Assert.AreEqual(false, IsThereChar('<', SomeSymbols()));
+            Assert.AreEqual(false, IsThereChar('<', CharRemove(SomeSymbols(), "{}[]()/\\\'\"~,;.<>")));
         }
 
-        char[] SomeSymbols()
+        string SomeSymbols()
         {
-            var symbolsArray = new char[] { '^', '_', '|' }.Concat(CharArray('!', '-').Concat(CharArray(':', '@')).ToArray()).ToArray();
-            foreach (char element in new char[] { '{', '}', '[', ']', '(', ')', '/', '\\', '\'', '"', '~', ',', ';', '.', '<', '>' })
-                symbolsArray = CharRemove(symbolsArray, element);
-            return symbolsArray;
+            return String.Concat(CharArray((char)33, (char)47), CharArray((char)58, (char)64), CharArray((char)91, (char)96), CharArray((char)123, (char)127));
         }
 
         [TestMethod]
@@ -201,7 +185,7 @@ namespace Password
             Assert.AreEqual(0, HowManyChars(SomeSymbols(), GeneratePass(8, 4, 4, 4)));
         }
 
-        int HowManyChars(char[] toFind, string thePassword)
+        int HowManyChars(string toFind, string thePassword)
         {
             int result = 0;
             for (int i = 0; i < thePassword.Length; i++)
