@@ -62,7 +62,7 @@ namespace Password
         {
             Assert.AreEqual(false, IsThereChar('l', CharRemove(SmallLetters())));
         }
-        
+
         string SmallLetters()
         {
             return CharArray('a', 'z');
