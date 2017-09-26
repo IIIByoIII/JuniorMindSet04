@@ -33,7 +33,7 @@ namespace Password
             Assert.AreEqual("ac", CharRemove(CharArray('a', 'c'), "b"));
         }
 
-        string CharRemove(string theArray, string toRemove)
+        string CharRemove(string theArray, string toRemove = "loIO01{}[]()/\\\'\"~,;.<>")
         {
             for (int i = 0; i < toRemove.Length; i++)
                 theArray = theArray.Replace(toRemove[i].ToString(), "");
@@ -60,7 +60,7 @@ namespace Password
         [TestMethod]
         public void Exists_l() 
         {
-            Assert.AreEqual(false, IsThereChar('l', CharRemove(SmallLetters(), "lo")));
+            Assert.AreEqual(false, IsThereChar('l', CharRemove(SmallLetters())));
         }
         
         string SmallLetters()
@@ -83,7 +83,7 @@ namespace Password
         [TestMethod]
         public void Exists_I() 
         {
-            Assert.AreEqual(false, IsThereChar('I', CharRemove(CapitalLetters(), "IO")));
+            Assert.AreEqual(false, IsThereChar('I', CharRemove(CapitalLetters())));
         }
 
         string CapitalLetters()
@@ -100,7 +100,7 @@ namespace Password
         [TestMethod]
         public void Exists_0() 
         {
-            Assert.AreEqual(false, IsThereChar('0', CharRemove(SomeNumbers(), "09")));
+            Assert.AreEqual(false, IsThereChar('0', CharRemove(SomeNumbers())));
         }
 
         string SomeNumbers()
@@ -135,13 +135,13 @@ namespace Password
         [TestMethod]
         public void Exists_LeftBracket() 
         {
-            Assert.AreEqual(false, IsThereChar('(', CharRemove(SomeSymbols(), "{}[]()/\\\'\"~,;.<>")));
+            Assert.AreEqual(false, IsThereChar('(', CharRemove(SomeSymbols())));
         }
 
         [TestMethod]
         public void Exists_LessThan() 
         {
-            Assert.AreEqual(false, IsThereChar('<', CharRemove(SomeSymbols(), "{}[]()/\\\'\"~,;.<>")));
+            Assert.AreEqual(false, IsThereChar('<', CharRemove(SomeSymbols())));
         }
 
         string SomeSymbols()
