@@ -215,9 +215,23 @@ namespace Password
                 else
                     passChars[i] = SmallLetters()[rnd.Next(0, SmallLetters().Length)];
             }
-            char[] shuffledChars = passChars.OrderBy(n => Guid.NewGuid()).ToArray();
-            string result = new string(shuffledChars);
-            return result;
+            for (int i = 0; i < passLength; i++)
+                passChars = SwapChars(passChars, i, rnd.Next(passLength));
+            return new string(passChars);
+        }
+
+        [TestMethod]
+        public void SwapCharAC() 
+        {
+            CollectionAssert.AreEqual(new char[]{'C', 'B', 'A'}, SwapChars(new char[]{'A', 'B', 'C'}, 0, 2));
+        }
+
+        char[] SwapChars(char[] chars, int a, int b)
+        {
+            char temp = chars[a];
+            chars[a] = chars[b];
+            chars[b] = temp;
+            return chars;
         }
     }
 }
