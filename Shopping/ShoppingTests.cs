@@ -62,5 +62,17 @@ namespace Shopping
             items.RemoveAt(maxPriceIndex);
             return items;
         }
+
+        [TestMethod]
+        public void TotalPriceWithNewItem()
+        {
+            Assert.AreEqual(14.0, GetTotalPrice(AddNewItem(cart, "banana", 3)));
+        }
+
+        List<Item> AddNewItem(List<Item> items, string itemName, double itemPrice)
+        {
+            items.Add(new Item(itemName, itemPrice));
+            return items;
+        }
     }
 }
