@@ -49,6 +49,22 @@ namespace Shopping
         }
 
         [TestMethod]
+        public void MinMaxIndex()
+        {
+            CollectionAssert.AreEqual(new int[] {0, 2}, MinMaxItemPriceIndex(cart));
+        }
+
+        int[] MinMaxItemPriceIndex(List<Item> items)
+        {
+            double[] prices = new double [items.Count];
+            for (int i = 0; i < items.Count; i++)
+                prices[i] = items[i].price;
+            int min = Array.IndexOf(prices, prices.Min());
+            int max = Array.IndexOf(prices, prices.Max());
+            return new int[] {min, max};
+        }
+
+        [TestMethod]
         public void TotalPrice()
         {
             Assert.AreEqual(11.0, GetTotalPrice(cart));
