@@ -97,5 +97,16 @@ namespace Shopping
             items.Add(new Item(itemName, itemPrice));
             return items;
         }
+
+        [TestMethod]
+        public void AveragePrice()
+        {
+            Assert.AreEqual((11.0 / 3), GetAveragePrice(cart));
+        }
+
+        double GetAveragePrice(List<Item> items)
+        {
+            return (GetTotalPrice(items) / items.Count);
+        }
     }
 }
