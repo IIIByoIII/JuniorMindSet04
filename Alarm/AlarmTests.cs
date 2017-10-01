@@ -7,8 +7,20 @@ namespace Alarm
     public class AlarmTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void GetFriday()
         {
+            Assert.AreEqual(5, (int)Day.Friday);
+        }
+
+        enum Day
+        {
+            Monday = 1,
+            Tuesday,
+            Wednesday,
+            Thursday,
+            Friday,
+            Saturday,
+            Sunday
         }
     }
 }
