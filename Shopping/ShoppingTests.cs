@@ -34,6 +34,21 @@ namespace Shopping
         List<Item> cart = new List<Item> {new Item("apple", 3.2), new Item("pear", 3.8), new Item("orange", 4)};
 
         [TestMethod]
+        public void CheapestItem()
+        {
+            Assert.AreEqual("apple", Cheapest(cart));
+        }
+
+        string Cheapest(List<Item> items)
+        {
+            double[] prices = new double [items.Count];
+            for (int i = 0; i < items.Count; i++)
+                prices[i] = items[i].price;
+            int minPriceIndex = Array.IndexOf(prices, prices.Min());
+            return items[minPriceIndex].name;
+        }
+
+        [TestMethod]
         public void TotalPrice()
         {
             Assert.AreEqual(11.0, GetTotalPrice(cart));
