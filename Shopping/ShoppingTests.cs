@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Shopping
 {
@@ -44,6 +45,22 @@ namespace Shopping
             for (int i = 0; i < items.Count; i++)
                 total += items[i].price;
             return total;
+        }
+
+        [TestMethod]
+        public void ExpensiveRemovedPrice()
+        {
+            Assert.AreEqual(7.0, GetTotalPrice(RemoveMostExpensive(cart)));
+        }
+
+        List<Item> RemoveMostExpensive(List<Item> items)
+        {
+            double[] prices = new double [items.Count];
+            for (int i = 0; i < items.Count; i++)
+                prices[i] = items[i].price;
+            int maxPriceIndex = Array.IndexOf(prices, prices.Max());
+            items.RemoveAt(maxPriceIndex);
+            return items;
         }
     }
 }
