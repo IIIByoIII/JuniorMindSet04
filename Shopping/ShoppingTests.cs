@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace Shopping
 {
@@ -9,15 +10,13 @@ namespace Shopping
         [TestMethod]
         public void FirstItemName()
         {
-            var firstItem = new Item("apple", 3.2);
-            Assert.AreEqual("apple", firstItem.name);
+            Assert.AreEqual("apple", cart[0].name);
         }
 
         [TestMethod]
         public void SecondItemPrice()
         {
-            var secondItem = new Item("pear", 3.8);
-            Assert.AreEqual(3.8, secondItem.price);
+            Assert.AreEqual(3.8, cart[1].price);
         }
 
         public struct Item
@@ -31,17 +30,18 @@ namespace Shopping
             }
         }
 
+        List<Item> cart = new List<Item> {new Item("apple", 3.2), new Item("pear", 3.8), new Item("orange", 4)};
+
         [TestMethod]
         public void TotalPrice()
         {
-            var allItems = new Item[] { new Item("apple", 3.2), new Item("pear", 3.8) };
-            Assert.AreEqual(7.0, GetTotalPrice(allItems));
+            Assert.AreEqual(11.0, GetTotalPrice(cart));
         }
 
-        static double GetTotalPrice(Item[] items)
+        static double GetTotalPrice(List<Item> items)
         {
             double total = 0;
-            for (int i = 0; i < items.Length; i++)
+            for (int i = 0; i < items.Count; i++)
                 total += items[i].price;
             return total;
         }
