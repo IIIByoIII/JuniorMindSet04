@@ -41,11 +41,7 @@ namespace Shopping
 
         string Cheapest(List<Item> items)
         {
-            double[] prices = new double [items.Count];
-            for (int i = 0; i < items.Count; i++)
-                prices[i] = items[i].price;
-            int minPriceIndex = Array.IndexOf(prices, prices.Min());
-            return items[minPriceIndex].name;
+            return items[MinMaxItemPriceIndex(items)[0]].name;
         }
 
         [TestMethod]
@@ -86,11 +82,7 @@ namespace Shopping
 
         List<Item> RemoveMostExpensive(List<Item> items)
         {
-            double[] prices = new double [items.Count];
-            for (int i = 0; i < items.Count; i++)
-                prices[i] = items[i].price;
-            int maxPriceIndex = Array.IndexOf(prices, prices.Max());
-            items.RemoveAt(maxPriceIndex);
+            items.RemoveAt(MinMaxItemPriceIndex(items)[1]);
             return items;
         }
 
