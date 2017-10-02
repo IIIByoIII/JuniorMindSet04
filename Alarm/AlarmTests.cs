@@ -57,6 +57,15 @@ namespace Alarm
             Assert.AreEqual(true, IsAlarmTime(alarmTimes, "06:00", (byte)Day.Tuesday));
         }
 
+        [TestMethod]
+        public void AlarmIsOff()
+        {
+            string[] alarmTimes = new string[7];
+            alarmTimes = SetAlarmTimes(alarmTimes, "06:00", (byte)Day.Monday, (byte)Day.Friday);
+            alarmTimes = SetAlarmTimes(alarmTimes, "08:00", (byte)Day.Saturday, (byte)Day.Sunday);
+            Assert.AreEqual(false, IsAlarmTime(alarmTimes, "06:05", (byte)Day.Tuesday));
+        }
+
         bool IsAlarmTime(string[] alarmTimes, string time, byte day)
         {
             return (alarmTimes[day] == time);
