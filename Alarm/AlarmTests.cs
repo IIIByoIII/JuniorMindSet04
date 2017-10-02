@@ -30,6 +30,15 @@ namespace Alarm
             Assert.AreEqual("06:00", alarmTimes[(byte)Day.Monday]);
         }
 
+        [TestMethod]
+        public void GetFullWeekAlarm()
+        {
+            string[] alarmTimes = new string[7];
+            alarmTimes = SetAlarmTimes(alarmTimes, "06:00", (byte)Day.Monday, (byte)Day.Friday);
+            alarmTimes = SetAlarmTimes(alarmTimes, "08:00", (byte)Day.Saturday, (byte)Day.Sunday);
+            CollectionAssert.AreEqual(new string[] {"06:00", "06:00", "06:00", "06:00", "06:00", "08:00", "08:00"}, alarmTimes);
+        }
+
         string[] SetAlarmTimes(string[] prevTimes, string alarmTime, byte startDay, byte endDay = 0)
         {
             if (startDay > endDay)
