@@ -41,23 +41,25 @@ namespace Shopping
 
         string Cheapest(List<Item> items)
         {
-            return items[MinMaxItemPriceIndex(items)[0]].name;
+            return items[ItemPriceIndex(items, "min")].name;
         }
 
         [TestMethod]
         public void MinMaxIndex()
         {
-            CollectionAssert.AreEqual(new int[] {0, 2}, MinMaxItemPriceIndex(cart));
+            Assert.AreEqual(0, ItemPriceIndex(cart, "min"));
+            Assert.AreEqual(2, ItemPriceIndex(cart, "max"));
         }
 
-        int[] MinMaxItemPriceIndex(List<Item> items)
+        int ItemPriceIndex(List<Item> items, string minOrMax)
         {
             double[] prices = new double [items.Count];
             for (int i = 0; i < items.Count; i++)
                 prices[i] = items[i].price;
-            int min = Array.IndexOf(prices, prices.Min());
-            int max = Array.IndexOf(prices, prices.Max());
-            return new int[] {min, max};
+            if (minOrMax == "min")
+                return Array.IndexOf(prices, prices.Min());
+            else
+                return Array.IndexOf(prices, prices.Max());
         }
 
         [TestMethod]
@@ -82,7 +84,7 @@ namespace Shopping
 
         List<Item> RemoveMostExpensive(List<Item> items)
         {
-            items.RemoveAt(MinMaxItemPriceIndex(items)[1]);
+            items.RemoveAt(ItemPriceIndex(items, "max"));
             return items;
         }
 
