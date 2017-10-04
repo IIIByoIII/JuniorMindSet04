@@ -31,7 +31,7 @@ namespace Alarm
         {
             Day days = SetAlarmDay(Day.Tuesday);
             days |= SetAlarmDay(Day.Thursday);
-            Assert.AreEqual((Day)(2+8), days);
+            Assert.AreEqual(Day.Tuesday | Day.Thursday, days);
         }
 
         [TestMethod]
