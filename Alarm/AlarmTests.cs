@@ -7,68 +7,80 @@ namespace Alarm
     public class AlarmTests
     {
         [TestMethod]
-        public void GetFriday()
+        public void SetCheckWeekend()
         {
-            Assert.AreEqual(4, (int)Day.Friday);
+            Day days = Day.Saturday;
+            days |= Day.Sunday;
+            Assert.AreEqual(96, (byte)days);
         }
 
+        [Flags]
         public enum Day
         {
-            Monday,
-            Tuesday,
-            Wednesday,
-            Thursday,
-            Friday,
-            Saturday,
-            Sunday
+            Monday = 1,
+            Tuesday = 2,
+            Wednesday = 4,
+            Thursday = 8,
+            Friday = 16,
+            Saturday = 32,
+            Sunday = 64
         }
 
         [TestMethod]
-        public void GetMondayAlarm()
+        public void SetCheckWeek()
         {
-            string[] alarmTimes = SetAlarmTimes(new string[7], "06:00", (byte)Day.Monday);
-            Assert.AreEqual("06:00", alarmTimes[(byte)Day.Monday]);
+            Assert.AreEqual((Day)127, SetAlarmDay(Day.Monday, Day.Sunday));
         }
 
-        [TestMethod]
-        public void GetFullWeekAlarm()
+        Day SetAlarmDay(Day startDay, Day endDay)
         {
-            string[] alarmTimes = new string[7];
-            alarmTimes = SetAlarmTimes(alarmTimes, "06:00", (byte)Day.Monday, (byte)Day.Friday);
-            alarmTimes = SetAlarmTimes(alarmTimes, "08:00", (byte)Day.Saturday, (byte)Day.Sunday);
-            CollectionAssert.AreEqual(new string[] {"06:00", "06:00", "06:00", "06:00", "06:00", "08:00", "08:00"}, alarmTimes);
-        }
-
-        string[] SetAlarmTimes(string[] prevTimes, string alarmTime, byte startDay, byte endDay = 0)
-        {
+            byte days = 0;
             if (startDay > endDay)
                 endDay = startDay;
-            for (int i = startDay; i <= endDay; i++)
-                prevTimes[i] = alarmTime;
-            return prevTimes;
+            for (byte i = (byte)startDay; i <= (byte)endDay; i *= 2)
+                days += i;
+            return (Day)days;
         }
 
         [TestMethod]
         public void AlarmIsOn()
         {
-            string[] alarmTimes = new string[7];
-            alarmTimes = SetAlarmTimes(alarmTimes, "06:00", (byte)Day.Monday, (byte)Day.Friday);
-            alarmTimes = SetAlarmTimes(alarmTimes, "08:00", (byte)Day.Saturday, (byte)Day.Sunday);
-            Assert.AreEqual(true, IsAlarmTime(alarmTimes, "06:00", (byte)Day.Tuesday));
+            Assert.AreEqual(true, IsAlarm(Day.Tuesday, (SetAlarmDay(Day.Monday, Day.Friday))));
         }
 
         [TestMethod]
         public void AlarmIsOff()
         {
-            string[] alarmTimes = new string[7];
-            alarmTimes = SetAlarmTimes(alarmTimes, "06:00", (byte)Day.Monday, (byte)Day.Friday);
-            alarmTimes = SetAlarmTimes(alarmTimes, "08:00", (byte)Day.Saturday, (byte)Day.Sunday);
-            Assert.AreEqual(false, IsAlarmTime(alarmTimes, "06:05", (byte)Day.Tuesday));
+            Assert.AreEqual(false, IsAlarm(Day.Sunday, (SetAlarmDay(Day.Monday, Day.Friday))));
         }
 
-        bool IsAlarmTime(string[] alarmTimes, string time, byte day)
+        bool IsAlarm(Day day, Day days)
         {
-            return (alarmTimes[day] == time);
+            return (day & days) != 0;
+        }
+
+        [TestMethod]
+        public void Tuesday_6AM_Alarm()
+        {
+            object[] alarm = SetAlarm("06:00", Day.Monday, Day.Friday);
+            Assert.AreEqual("06:00", alarm[0]);
+            Assert.AreEqual(true, IsAlarm(Day.Tuesday, (Day)alarm[1]));
+        }
+
+        [TestMethod]
+        public void Sunday_8AM_Alarm()
+        {
+            object[] alarm = SetAlarm("08:00", Day.Saturday, Day.Sunday);
+            Assert.AreEqual("08:00", alarm[0]);
+            Assert.AreEqual(true, IsAlarm(Day.Sunday, (Day)alarm[1]));
+        }
+
+        object[] SetAlarm(string time, Day startDay, Day endDay)
+        {
+            object[] result = new object[2];
+            result[0] = time;
+            result[1] = SetAlarmDay(startDay, endDay);
+            return result;
         }
     }
 }
