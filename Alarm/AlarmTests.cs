@@ -27,12 +27,20 @@ namespace Alarm
         }
 
         [TestMethod]
+        public void SetCheckTuesdayThursday()
+        {
+            Day days = SetAlarmDay(Day.Tuesday);
+            days |= SetAlarmDay(Day.Thursday);
+            Assert.AreEqual((Day)(2+8), days);
+        }
+
+        [TestMethod]
         public void SetCheckWeek()
         {
             Assert.AreEqual((Day)127, SetAlarmDay(Day.Monday, Day.Sunday));
         }
 
-        Day SetAlarmDay(Day startDay, Day endDay)
+        Day SetAlarmDay(Day startDay, Day endDay = 0)
         {
             byte days = 0;
             if (startDay > endDay)
