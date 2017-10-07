@@ -27,6 +27,10 @@ namespace Cyclometer
         public int MaxSpeedIndex() {
             return Array.IndexOf(revSec, revSec.Max());
         }
+
+        public double AverageSpeed() {
+            return revSec.Sum() * diameter / revSec.Length;
+        }
     }
 
     [TestClass]
@@ -86,7 +90,7 @@ namespace Cyclometer
         {
             double[] averages = new double[cyclists.Length];
             for (int i = 0; i < cyclists.Length; i++)
-                averages[i] = cyclists[i].revSec.Sum() * cyclists[i].diameter / cyclists[i].revSec.Length; 
+                averages[i] = cyclists[i].AverageSpeed();
             return "The winner is " + cyclists[Array.IndexOf(averages, averages.Max())].name;
         }
     }
