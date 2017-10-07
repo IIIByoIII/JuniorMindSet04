@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Cyclometer
 {
@@ -41,6 +42,29 @@ namespace Cyclometer
             }
             totalDistance *= Math.PI;
             return totalDistance;
+        }
+
+        [TestMethod]
+        public void GetFastestCyclist()
+        {
+            var cyclists = new Cyclist[] { 
+                new Cyclist("Radu", 26.4, new int[] {2, 2, 3, 3, 4, 4}),
+                new Cyclist("Alin", 24.0, new int[] {3, 3, 4, 4, 3, 3}),
+                new Cyclist("Robi", 27.0, new int[] {1, 1, 2, 3, 4, 5})
+            };
+            Assert.AreEqual("Robi in second 6", MaxSpeed(cyclists));
+        }
+
+        string MaxSpeed(Cyclist[] cyclists)
+        {
+            int[] maxRevIndex = new int[cyclists.Length];
+            double[] maxSpeed = new double[cyclists.Length];
+            for (int i = 0; i < cyclists.Length; i++) {
+                maxRevIndex[i] = Array.IndexOf(cyclists[i].revSec, cyclists[i].revSec.Max());
+                maxSpeed[i] = cyclists[i].diameter * cyclists[i].revSec.Max();
+            }
+            int fastest = Array.IndexOf(maxSpeed, maxSpeed.Max());
+            return cyclists[fastest].name + " in second " + (maxRevIndex[fastest] + 1).ToString();
         }
     }
 }
