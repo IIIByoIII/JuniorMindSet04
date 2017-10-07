@@ -9,10 +9,15 @@ namespace Cyclometer
         public string name;
         public double diameter;
         public int[] revSec;
+
         public Cyclist(string name, double diameter, int[] revSec) {
             this.name = name;
             this.diameter = diameter;
             this.revSec = revSec;
+        }
+
+        public double Distance() {
+            return revSec.Sum() * diameter * Math.PI;
         }
     }
 
@@ -33,14 +38,8 @@ namespace Cyclometer
         double TotalDistance(Cyclist[] cyclists)
         {
             double totalDistance = 0;
-            double cyclistRevolutions;
-            for (int i = 0; i < cyclists.Length; i++) {
-                cyclistRevolutions = 0;
-                for (int j = 0; j < cyclists[i].revSec.Length; j++)
-                    cyclistRevolutions += cyclists[i].revSec[j];
-                totalDistance += cyclistRevolutions * cyclists[i].diameter;
-            }
-            totalDistance *= Math.PI;
+            for (int i = 0; i < cyclists.Length; i++)
+                totalDistance += cyclists[i].Distance();
             return totalDistance;
         }
 
