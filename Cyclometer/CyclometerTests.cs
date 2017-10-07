@@ -17,7 +17,7 @@ namespace Cyclometer
         }
 
         public double Distance() {
-            return revSec.Sum() * diameter * Math.PI;
+            return revSec.Sum() * diameter;
         }
 
         public double MaxSpeed() {
@@ -40,11 +40,11 @@ namespace Cyclometer
         public void GetTotalDistance()
         {
             var cyclists = new Cyclist[] { 
-                new Cyclist("Radu", 26.4, new int[] {2, 2, 3, 3, 4, 4}),
-                new Cyclist("Alin", 24.0, new int[] {3, 3, 4, 4, 3, 3}),
-                new Cyclist("Robi", 27.0, new int[] {1, 1, 2, 3, 4, 5})
-            }; // total 18+20+16=54 revolutions
-            Assert.AreEqual(((18*26.4)+(20*24.0)+(16*27.0))*Math.PI, TotalDistance(cyclists));
+                new Cyclist("Radu", 26.4, new int[] {2, 2}),
+                new Cyclist("Alin", 24.0, new int[] {3, 3}),
+                new Cyclist("Robi", 27.0, new int[] {1, 1})
+            }; // total 4+6+2=12 revolutions
+            Assert.AreEqual(((4*26.4)+(6*24.0)+(2*27.0)), TotalDistance(cyclists));
         }
 
         double TotalDistance(Cyclist[] cyclists)
