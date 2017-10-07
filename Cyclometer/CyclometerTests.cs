@@ -66,6 +66,25 @@ namespace Cyclometer
             int fastest = Array.IndexOf(maxSpeed, maxSpeed.Max());
             return cyclists[fastest].name + " in second " + (maxRevIndex[fastest] + 1).ToString();
         }
+
+        [TestMethod]
+        public void GetBestAverageSpeed()
+        {
+            var cyclists = new Cyclist[] { 
+                new Cyclist("Radu", 26.4, new int[] {2, 2, 3, 3, 4, 4}),
+                new Cyclist("Alin", 24.0, new int[] {3, 3, 4, 4, 3, 3}),
+                new Cyclist("Robi", 27.0, new int[] {1, 1, 2, 3, 4, 5})
+            };
+            Assert.AreEqual("The winner is Alin", BestAverage(cyclists));
+        }
+
+        string BestAverage(Cyclist[] cyclists)
+        {
+            double[] averages = new double[cyclists.Length];
+            for (int i = 0; i < cyclists.Length; i++)
+                averages[i] = cyclists[i].revSec.Sum() * cyclists[i].diameter / cyclists[i].revSec.Length; 
+            return "The winner is " + cyclists[Array.IndexOf(averages, averages.Max())].name;
+        }
     }
 }
 
