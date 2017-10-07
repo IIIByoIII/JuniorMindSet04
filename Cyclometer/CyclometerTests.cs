@@ -19,6 +19,14 @@ namespace Cyclometer
         public double Distance() {
             return revSec.Sum() * diameter * Math.PI;
         }
+
+        public double MaxSpeed() {
+            return revSec.Max() * diameter; 
+        }
+
+        public int MaxSpeedIndex() {
+            return Array.IndexOf(revSec, revSec.Max());
+        }
     }
 
     [TestClass]
@@ -51,19 +59,16 @@ namespace Cyclometer
                 new Cyclist("Alin", 24.0, new int[] {3, 3, 4, 4, 3, 3}),
                 new Cyclist("Robi", 27.0, new int[] {1, 1, 2, 3, 4, 5})
             };
-            Assert.AreEqual("Robi in second 6", MaxSpeed(cyclists));
+            Assert.AreEqual("Robi in second 6", FastestCyclist(cyclists));
         }
 
-        string MaxSpeed(Cyclist[] cyclists)
+        string FastestCyclist(Cyclist[] cyclists)
         {
-            int[] maxRevIndex = new int[cyclists.Length];
             double[] maxSpeed = new double[cyclists.Length];
-            for (int i = 0; i < cyclists.Length; i++) {
-                maxRevIndex[i] = Array.IndexOf(cyclists[i].revSec, cyclists[i].revSec.Max());
-                maxSpeed[i] = cyclists[i].diameter * cyclists[i].revSec.Max();
-            }
+            for (int i = 0; i < cyclists.Length; i++)
+                maxSpeed[i] = cyclists[i].MaxSpeed();
             int fastest = Array.IndexOf(maxSpeed, maxSpeed.Max());
-            return cyclists[fastest].name + " in second " + (maxRevIndex[fastest] + 1).ToString();
+            return cyclists[fastest].name + " in second " + (cyclists[fastest].MaxSpeedIndex() + 1).ToString();
         }
 
         [TestMethod]
