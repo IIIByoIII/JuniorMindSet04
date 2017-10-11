@@ -30,8 +30,7 @@ namespace Intersection
             int x = 0;
             int y = 0;
             string direction;
-            var result = new List<Coord>();
-            result.Add(new Coord(x, y));
+            var result = new List<Coord>{ new Coord(x, y) };
             for (int i = 0; i < vectors.Length; i++) {
                 direction = vectors[i].ToString();
                 Vector vector = (Vector)Enum.Parse(typeof(Vector), direction);
@@ -55,5 +54,20 @@ namespace Intersection
             return result;
         }
 
+        [TestMethod]
+        public void IntersectingAt11()
+        {
+            var coords = GetCoords("URURDLDL");
+            Assert.AreEqual(new Coord(1, 1), GetIntersection(coords));
+        }
+
+        Coord GetIntersection(List<Coord> coords)
+        {
+            for (int i = 0; i < coords.Count; i++)
+                for (int j = i - 1; j >= 0 ; j--)
+                    if ((coords[i].x == coords[j].x) && (coords[i].y == coords[j].y))
+                        return coords[j];
+            return new Coord(null, null);
+        }
     }
 }
