@@ -14,6 +14,25 @@ namespace Intersection
             this.x = x;
             this.y = y;
         }
+
+        public Coord Advance(Vector v) {
+            switch ((int)v)
+            {
+                case 0:
+                    x++;
+                    break;
+                case 1:
+                    y++;
+                    break;
+                case 2:
+                    x--;
+                    break;
+                default:
+                    y--;
+                    break;
+            }
+            return new Coord(x, y);
+        }
     }
 
     [TestClass]
@@ -29,27 +48,14 @@ namespace Intersection
         {
             int x = 0;
             int y = 0;
+            Coord coord = new Coord(x, y);
             string direction;
             var result = new List<Coord>{ new Coord(x, y) };
             for (int i = 0; i < vectors.Length; i++) {
                 direction = vectors[i].ToString();
                 Vector vector = (Vector)Enum.Parse(typeof(Vector), direction);
-                switch ((int)vector)
-                {
-                    case 0:
-                        x++;
-                        break;
-                    case 1:
-                        y++;
-                        break;
-                    case 2:
-                        x--;
-                        break;
-                    default:
-                        y--;
-                        break;
-                }
-                result.Add(new Coord(x, y));
+                coord.Advance(vector);
+                result.Add(coord);
             }
             return result;
         }
