@@ -61,6 +61,13 @@ namespace Intersection
             Assert.AreEqual(new Coord(1, 1), GetIntersection(coords));
         }
 
+        [TestMethod]
+        public void NotIntersecting()
+        {
+            var coords = GetCoords("URURDRDR");
+            Assert.AreEqual(new Coord(null, null), GetIntersection(coords));
+        }
+
         Coord GetIntersection(List<Coord> coords)
         {
             for (int i = 0; i < coords.Count; i++)
